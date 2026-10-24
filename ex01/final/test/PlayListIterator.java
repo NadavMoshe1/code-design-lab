@@ -1,0 +1,62 @@
+
+package test;
+
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class PlayListIterator implements Iterator<String> {
+
+    // Each iterator represents the remaining items at one DFS level.
+    private final Deque<Iterator<Item>> stack = new ArrayDeque<>();
+    private Song nextSong = null;
+
+    public PlayListIterator(PlayList pl) {
+        stack.push(Arrays.asList(pl.getItems()).iterator());
+    }
+
+    @Override
+    public boolean hasNext() {
+        // Repeated hasNext() calls must not advance past a discovered song.
+        if (nextSong != null) {
+            return true;
+        }
+
+        while (!stack.isEmpty()) {
+            Iterator<Item> current = stack.peek();
+
+            if (!current.hasNext()) {
+                stack.pop();
+                continue;
+            }
+
+            Item item = current.next();
+
+            if (item instanceof Song) {
+                nextSong = (Song) item;
+                return true;
+            }
+
+            if (item instanceof PlayList) {
+                stack.push(Arrays.asList(
+                    ((PlayList) item).getItems()
+                ).iterator());
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public String next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+
+        String name = nextSong.name;
+        nextSong = null;
+        return name;
+    }
+}
