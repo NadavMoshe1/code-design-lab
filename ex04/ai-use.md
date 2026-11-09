@@ -1,25 +1,22 @@
 # AI Use
 
 ## Tool / Model
-
-TODO
+ChatGPT 6
 
 ## Role
-
-TODO
+Generated Java implementations, suggested guardrails.
 
 ## Main prompt(s)
+- Implement the ObservableFuture exercise without additional guardrails.
+- Suggest improvements to my guardrails.
+- Implement the exercise using the final guardrails.
 
-TODO
 
 ## Inputs provided
-
-TODO
+Exercise requirements, four human-written guardrails, seven AI-refined guardrails.
 
 ## Context
-
-Fresh context: yes / no
+Fresh context: yes (for both implementations).
 
 ## Notes
-
-TODO
+The AI helped improve the guardrails and analyze the solutions. However, the guarded version still missed some edge cases, showing the importance of reviewing AI-generated code.
